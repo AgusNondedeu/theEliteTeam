@@ -1,4 +1,4 @@
-mv target\ROOT \opt\apache-tomcat-9.0.54\webapps\
-cd \opt\apache-tomcat-9.0.54\bin\
+mv target\ROOT \opt\apache-tomcat-9.0.56\webapps\
+cd \opt\apache-tomcat-9.0.56\bin\
 java -cp tomcat-juli.jar;bootstrap.jar org.apache.catalina.startup.Bootstrap
-cd C:\cursos\breakingbad\clase1\
+cd C:\cursos\theEliteTeam\clase1\
