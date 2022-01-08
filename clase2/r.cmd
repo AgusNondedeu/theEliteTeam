@@ -1,4 +1,4 @@
 mv target\ROOT \opt\apache-tomcat-9.0.56\webapps\
 cd \opt\apache-tomcat-9.0.56\bin\
 java -cp tomcat-juli.jar;bootstrap.jar org.apache.catalina.startup.Bootstrap
-cd C:\cursos\theEliteTeam\clase2\
+cd \cursos\theEliteTeam\clase2\
