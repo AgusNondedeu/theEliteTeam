@@ -2,6 +2,7 @@ package edu.it.controllers;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -19,10 +20,15 @@ public class InventarAlumnoController extends HttpServlet {
 	            response.setContentType("application/json");
 	            PrintWriter out = response.getWriter();
 	            
-	            Alumno a = Utiles.generarAlumnoRandom();
+	            var alumnos = new ArrayList<Alumno>();
+	            
+	            for (Integer x : new Integer[5]) {
+	            	alumnos.add(Utiles.generarAlumnoRandom());
+	            }
+	            
 	            Gson gson = new Gson();
 	            
-	            String alumnoJson = gson.toJson(a);
+	            String alumnoJson = gson.toJson(alumnos);
 	            out.println(alumnoJson);
 	            
 	            response.setStatus(200);
