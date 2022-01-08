@@ -17,4 +17,13 @@ public class AlumnosController extends HttpServlet {
             out.println("</h1>");
             response.setStatus(200);
     }
+    public void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws IOException, ServletException {
+                response.setContentType("text/plain");
+                PrintWriter out = response.getWriter();
+                out.println("<h1>Agregando recurso: ");
+                out.println(System.currentTimeMillis());
+                out.println("</h1>");
+                response.setStatus(201);
+        }
 }
