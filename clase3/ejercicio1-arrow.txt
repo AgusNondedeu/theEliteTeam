@@ -1,0 +1,8 @@
+Modificar la inversion de control
+para pedirle al usuario cuantas veces quiere llamar
+a la funcion que recibe como parametro.
+
+Esto hacerlo en un ejemplo que se llame CuartoEjemplo.java
+Asi no pisamos los ejemplos.
+
+
