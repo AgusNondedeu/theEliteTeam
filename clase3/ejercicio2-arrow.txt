@@ -1,0 +1,20 @@
+A partir de la siguiente interfaz realizar la implementacion
+
+interface TipoOperacion {
+   Integer operar(Integer x, Integer y);
+}
+
+interface Operacion {
+   Integer operar(Integer x, Integer y, TipoOperacion tipoOp);
+}
+
+Tengo que definir una variable de tipo operacion
+
+Operacion oper = (x, y, t) -> {
+    t.operar(x, y);
+}
+
+TipoOperacion tipo = (x, y) -> 2 * x - y;
+
+Jugar de hacer pequeños cambios y probarlos
+
