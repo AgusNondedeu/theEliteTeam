@@ -19,7 +19,7 @@ import edu.it.model.Alumno;
 public class AlumnosController extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response)
         throws IOException, ServletException {
-    	response.setContentType("application/json");
+    		response.setContentType("application/json");
             PrintWriter out = response.getWriter();
             out.println("<h1>Hora Actual: ");
             out.println(System.currentTimeMillis());
@@ -29,10 +29,30 @@ public class AlumnosController extends HttpServlet {
     public void doPost(HttpServletRequest request, HttpServletResponse response)
             throws IOException, ServletException {
     	
-    			Utiles.manejarRespuesta(request, response, () -> {
-    				Alumno a = Utiles.deserializarInputStream(request, Alumno.class);
-    				Utiles.persistirObjeto(a);
-    				return a;
-    			});
-        }
+			Utiles.manejarRespuesta(request, response, () -> {
+				Alumno a = Utiles.deserializarInputStream(request, Alumno.class);
+				Utiles.persistirObjeto(a);
+				return a;
+			});
+    }
+    public void doPut(HttpServletRequest request, HttpServletResponse response)
+            throws IOException, ServletException {
+    	
+    	response.setContentType("application/json");
+        PrintWriter out = response.getWriter();
+        out.println("<h1>Hora Actual: ");
+        out.println(System.currentTimeMillis());
+        out.println("</h1>");
+        response.setStatus(200);
+    }
+    public void doDelete(HttpServletRequest request, HttpServletResponse response)
+            throws IOException, ServletException {
+    	
+    	response.setContentType("application/json");
+        PrintWriter out = response.getWriter();
+        out.println("<h1>Hora Actual: ");
+        out.println(System.currentTimeMillis());
+        out.println("</h1>");
+        response.setStatus(200);
+    }   
 }
