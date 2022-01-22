@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.google.gson.Gson;
 
 import edu.it.components.Utiles;
+import edu.it.dtos.ResultadoOK;
 import edu.it.model.Alumno;
 
 public class InventarAlumnoController extends HttpServlet {
@@ -19,16 +20,12 @@ public class InventarAlumnoController extends HttpServlet {
 	        throws IOException, ServletException {
 	            response.setContentType("application/json");
 	            PrintWriter out = response.getWriter();
-	            
-	            var alumnos = new ArrayList<Alumno>();
-	            
-	            for (Integer x : new Integer[5]) {
-	            	alumnos.add(Utiles.generarAlumnoRandom());
-	            }
-	            
+	             
 	            Gson gson = new Gson();
 	            
-	            String alumnoJson = gson.toJson(alumnos);
+	            var resultado = new ResultadoOK(Utiles.generarAlumnoRandom());
+	            
+	            String alumnoJson = gson.toJson(resultado);
 	            out.println(alumnoJson);
 	            
 	            response.setStatus(200);
