@@ -64,6 +64,12 @@ public class Utiles {
 			throw new BadRequestException("No se pudo interpretar json");
 		}
 	}
+	public static Object leerTodosLosRegistros() {
+		var conn = new ConectorJPA();
+	    var entityManager =	conn.getEntityManager();
+	    var qr = entityManager.createQuery("SELECT a FROM Alumno a");
+	    return qr.getResultList();
+	}
 	public static void persistirObjeto(Object obj) {
 		var conn = new ConectorJPA();
 	    var entityManager =	conn.getEntityManager();
@@ -121,5 +127,25 @@ public class Utiles {
 		map.put(key, value);
 		return map;
 	}
-	
+	public static void validarPathInfoNotNull(String pathInfo) {
+		if (pathInfo == null) {
+			throw new BadRequestException("Se esperaba un parametro");
+		}
+	}
+	public static void validarPathInfo(String uuid) {
+		uuid = uuid.replace("/", "");
+		
+		if (uuid.equals("")) {
+			throw new BadRequestException("se requiere el id del objeto");
+		}
+		
+		if (uuid.matches("[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}") == false) {
+			throw new BadRequestException("el id no esta bien formado 1");
+		}
+		/*                
+		if (uuid.matches("[0-9a-f]{8}-[0-9a-f]{4}-4[0-9]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}") == false) {
+			throw new BadRequestException("el id no esta bien formado 2");
+		}	
+		*/	 
+	}
 }

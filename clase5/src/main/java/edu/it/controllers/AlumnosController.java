@@ -1,19 +1,14 @@
 package edu.it.controllers;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.google.gson.Gson;
-
-import edu.it.components.ConectorJPA;
 import edu.it.components.Utiles;
-import edu.it.dtos.ResultadoError;
-import edu.it.dtos.ResultadoOK;
+import edu.it.errores.BadRequestException;
 import edu.it.model.Alumno;
 
 public class AlumnosController extends HttpServlet {
@@ -23,7 +18,7 @@ public class AlumnosController extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response)
         throws IOException, ServletException {    		
             Utiles.manejarRespuesta(request, response, () -> {
-            	return Utiles.obtenerMapa("Mensaje", String.valueOf(System.currentTimeMillis()));
+            	return Utiles.leerTodosLosRegistros();
             });
     }
     public void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -32,30 +27,32 @@ public class AlumnosController extends HttpServlet {
 			Utiles.manejarRespuesta(request, response, () -> {
 				Alumno a = Utiles.deserializarInputStream(request, Alumno.class);
 				Utiles.persistirObjeto(a);
-				return a;
+				return "";
 			}, 201);
     }
     public void doPut(HttpServletRequest request, HttpServletResponse response)
             throws IOException, ServletException {
-    	
-    	response.setContentType("application/json");
-        PrintWriter out = response.getWriter();
-        out.println("<h1>Hora Actual: ");
-        out.println(System.currentTimeMillis());
-        out.println("</h1>");
-        response.setStatus(200);
+    
+    	Utiles.manejarRespuesta(request, response, () -> {
+    		Utiles.validarPathInfoNotNull(request.getPathInfo());
+    		var id = request.getPathInfo().replace("/", "");
+    		Utiles.validarPathInfo(id);
+    		Alumno a = Utiles.deserializarInputStream(request, Alumno.class);
+    		if (a.id.equals(id)==false) {
+    			throw new BadRequestException("Los ids difieren");
+    		}
+    		Utiles.persistirObjeto(a);
+        	return "";
+        });
     }
     public void doDelete(HttpServletRequest request, HttpServletResponse response)
             throws IOException, ServletException {
     	
-    	// Hay que desserializar el alumno
-    	// hay que llamar a Utiles.borrarObjeto
-    	
-    	response.setContentType("application/json");
-        PrintWriter out = response.getWriter();
-        out.println("<h1>Hora Actual: ");
-        out.println(System.currentTimeMillis());
-        out.println("</h1>");
-        response.setStatus(200);
+    	Utiles.manejarRespuesta(request, response, () -> {
+    		var id = request.getPathInfo().replace("/", "");
+    		Utiles.validarPathInfo(id);
+        	Utiles.borrarObjeto(id);
+        	return "";
+        });   
     }   
 }

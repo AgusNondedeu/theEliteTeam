@@ -1,0 +1,11 @@
+public void doDelete(HttpServletRequest request, HttpServletResponse response)
+	        throws IOException, ServletException {
+	            response.setContentType("application/json");
+	            PrintWriter out = response.getWriter();
+	             
+	            Gson gson = new Gson();
+	            
+	            String alumnoJson = gson.toJson(resultado);
+	            out.println(alumnoJson);
+	            
+	            response.setStatus(200);
