@@ -1,0 +1,11 @@
+Crear una nueva entity
+
+Cliente {id, nombre}
+
+Crear un nuevo ClienteController
+
+Hacer el mapeo en el web.xml, fijarse como esta hecho alumno
+
+la url deberia ser /cliente 
+
+El unico metodo que vamos a implementar es el doPost
