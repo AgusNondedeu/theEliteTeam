@@ -5,6 +5,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -67,6 +68,17 @@ public class Utiles {
 		catch (Exception ex) {
 			throw new BadRequestException("No se pudo interpretar json");
 		}
+	}
+	public static Usuario leerUnUsuario(String nombreUsu) {
+		var conn = new ConectorJPA();
+		var entityManager =	conn.getEntityManager();
+		var qr = entityManager.createQuery("SELECT u FROM Usuario u WHERE u.nombre = :nombreParam");
+		qr.setParameter("nombreParam", nombreUsu);
+		List<Usuario> lstUsu = qr.getResultList();
+		if (lstUsu.size() == 0) {
+			throw new NotFoundException("");
+		}
+		return lstUsu.get(0);
 	}
 	public static Object leerTodosLosRegistros() {
 		var conn = new ConectorJPA();

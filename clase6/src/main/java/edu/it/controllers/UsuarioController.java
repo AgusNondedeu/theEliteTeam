@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.codec.digest.DigestUtils;
+
 import edu.it.components.Utiles;
 import edu.it.dtos.UsuPass;
 import edu.it.model.Usuario;
@@ -28,8 +30,11 @@ public class UsuarioController extends HttpServlet {
 			Usuario usuario = new Usuario();
 			usuario.id = UUID.randomUUID().toString();
 			usuario.nombre = usuPass.usuario;
-			usuario.salt = "TENEMOS QUE VER LA TEORIA";
-			usuario.passwordEnciptada = "ACA NO SE VA A PODER VER LA PASS";
+			usuario.salt = String.join("__", UUID.randomUUID().toString(), 
+												UUID.randomUUID().toString());
+			String passAEncriptar = String.join("__", usuPass.password, usuario.salt);
+			usuario.passwordEnciptada = DigestUtils.sha256Hex(passAEncriptar);
+			
 			Utiles.persistirObjeto(usuario);
 			return usuario.id;
 		}, 201);	
