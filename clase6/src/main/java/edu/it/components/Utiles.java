@@ -11,6 +11,8 @@ import java.util.UUID;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.log4j.Logger;
+
 import com.github.javafaker.Faker;
 import com.google.gson.Gson;
 
@@ -21,8 +23,10 @@ import edu.it.errores.HttpException;
 import edu.it.errores.NotFoundException;
 import edu.it.interfaces.InversionDeControl;
 import edu.it.model.Alumno;
+import edu.it.model.Usuario;
 
 public class Utiles {
+	private static Logger logger = Logger.getLogger("Utiles");
 	public static Alumno generarAlumnoRandom() {
 		Faker fkr = new Faker();
 		
@@ -78,6 +82,30 @@ public class Utiles {
 	    entityManager.merge(obj);
 	    tx.commit();
 	}
+	public static void borrarObjetoGenerico(Class clazz, String id) {
+		var conn = new ConectorJPA();
+	    var entityManager =	conn.getEntityManager();
+	    var tx = entityManager.getTransaction();
+	    tx.begin();
+	    Object objBorrar = entityManager.find(clazz, id);
+	    if (objBorrar == null) {
+	    	throw new NotFoundException("Objeto NO encontrado");
+	    }
+	    entityManager.remove(objBorrar);
+	    tx.commit();
+	}
+	public static void borrarObjetoUsuario(String id) {
+		var conn = new ConectorJPA();
+	    var entityManager =	conn.getEntityManager();
+	    var tx = entityManager.getTransaction();
+	    tx.begin();
+	    var usuario = entityManager.find(Usuario.class, id);
+	    if (usuario == null) {
+	    	throw new NotFoundException("Usuario NO encontrado");
+	    }
+	    entityManager.remove(usuario);
+	    tx.commit();
+	}
 	public static void borrarObjeto(String id) {
 		var conn = new ConectorJPA();
 	    var entityManager =	conn.getEntityManager();
@@ -115,10 +143,14 @@ public class Utiles {
 		}
 		catch (HttpException ex) {
 			res.setStatus(ex.status);
+			logger.error(ex.getMessage());
+			ex.printStackTrace();
 			out.println(new Gson().toJson(new ResultadoError(ex.mensaje)));
 		}
 		catch (Exception ex) {
 			res.setStatus(500);
+			logger.error(ex.getMessage());
+			ex.printStackTrace();
 			out.println(new Gson().toJson(new ResultadoError("Error en el servidor")));
 		}
 	}

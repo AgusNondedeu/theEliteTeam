@@ -1,0 +1,11 @@
+public static void borrarObjetoUsuario(String id) {
+		var conn = new ConectorJPA();
+	    var entityManager =	conn.getEntityManager();
+	    var tx = entityManager.getTransaction();
+	    tx.begin();
+	    var usuario = entityManager.find(Usuario.class, id);
+	    if (usuario == null) {
+	    	throw new NotFoundException("Usuario NO encontrado");
+	    }
+	    entityManager.remove(usuario);
+	    tx.commit();

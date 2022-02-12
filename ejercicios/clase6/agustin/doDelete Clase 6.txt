@@ -1,0 +1,8 @@
+public void doDelete(HttpServletRequest request, HttpServletResponse response)
+            throws IOException, ServletException {
+    	
+    	Utiles.manejarRespuesta(request, response, () -> {
+    		var id = request.getPathInfo().replace("/", "");
+    		Utiles.validarPathInfo(id);
+        	Utiles.borrarObjetoUsuario(id);
+        	return "";

@@ -37,5 +37,11 @@ public class UsuarioController extends HttpServlet {
 	public void doDelete(HttpServletRequest request, HttpServletResponse response)
             throws IOException, ServletException {
 		
+		Utiles.manejarRespuesta(request, response, () -> {
+	    	var id = request.getPathInfo().replace("/", "");
+	    	Utiles.validarPathInfo(id);
+	        Utiles.borrarObjetoGenerico(Usuario.class, id);
+	        return "";
+		});
 	}
 }
