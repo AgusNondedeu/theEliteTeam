@@ -1,0 +1,18 @@
+Como encriptar una password
+
+Para encriptar se usa un algortimo de hash tipicamente sha1, sha256, sha512, sha1024.
+Normalmente sha256.
+
+Alejandro -> af7f182c3917296de3d8001b180908dc4a4f87571fef699362f26fedb6342ce7
+BocaRiver1234__4807a007-105c-4b10-a4ab-65a878597d57__4807a007-105c-4b10-a4ab-65a878597d57
+
+256 bits en total (ancho fijo)
+
+Infinitos inputs dan el mismo output.
+
+Ahora bien, para una clave de 50 caracteres la posibilidad de colision es muy poca.
+Si la hubiera, tampoco representa un problema.
+
+
+
+
