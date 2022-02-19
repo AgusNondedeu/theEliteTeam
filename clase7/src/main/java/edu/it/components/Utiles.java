@@ -130,6 +130,31 @@ public class Utiles {
 	    entityManager.remove(alumno);
 	    tx.commit();
 	}
+	public static void manejarPosibleError(HttpServletRequest req,
+			HttpServletResponse res,
+			InversionDeControl ioc) {
+	
+		res.setContentType("application/json");
+		PrintWriter out = null;
+		
+		try {
+			out = res.getWriter();
+			ioc.controlar();
+			return;
+		}
+		catch (HttpException ex) {
+			res.setStatus(ex.status);
+			logger.error(ex.getMessage());
+			ex.printStackTrace();
+			out.println(new Gson().toJson(new ResultadoError(ex.mensaje)));
+		}
+		catch (Exception ex) {
+			res.setStatus(500);
+			logger.error(ex.getMessage());
+			ex.printStackTrace();
+			out.println(new Gson().toJson(new ResultadoError("Error en el servidor")));
+		}
+	}
 	public static void manejarRespuesta(
 			HttpServletRequest req,
 			HttpServletResponse res,
