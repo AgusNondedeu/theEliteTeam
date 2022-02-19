@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.log4j.Logger;
 
+import edu.it.components.JWTUtil;
 import edu.it.components.Utiles;
 import edu.it.dtos.UsuPass;
 import edu.it.errores.NotFoundException;
@@ -58,9 +59,7 @@ public class LoginController extends HttpServlet {
 				throw new NotFoundException("");
 			}
 			
-			return "TOKEN_20220219";
-			
-			// Mecanismo de generacion de token.
+			return JWTUtil.crearJWT(usuPass.usuario);
 		});	
 		
 	}

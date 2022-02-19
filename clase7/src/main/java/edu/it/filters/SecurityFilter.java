@@ -12,17 +12,35 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 
+import edu.it.components.JWTUtil;
 import edu.it.components.Utiles;
 import edu.it.errores.UnauthorizedException;
 
 public class SecurityFilter implements Filter {
 	Logger logger = Logger.getLogger(getClass());
 	
-	private void verificarToken() {
+	private void verificarToken(String token) {
 		// Hay que verificar que el token sea TOKEN_20220219
 		// si es ese ? no hago nada, return
 		// de lo contrario
-		throw new UnauthorizedException("El token no es correcto");
+		if (token == null) {
+			throw new UnauthorizedException("Es necesario contar con un token");
+		}
+		try {
+			JWTUtil.validarToken(token);
+		}
+		catch (io.jsonwebtoken.MalformedJwtException ex) {
+			logger.warn("io.jsonwebtoken.MalformedJwtException");
+			throw new UnauthorizedException("No se recibio un token adecuado");
+		}
+		catch (io.jsonwebtoken.SignatureException ex) {
+			logger.warn("io.jsonwebtoken.SignatureException");
+			throw new UnauthorizedException("token invalido");
+		}
+		catch (io.jsonwebtoken.ExpiredJwtException ex) {
+			logger.warn("io.jsonwebtoken.ExpiredJwtException");
+			throw new UnauthorizedException("token vencido, debe volver a loguearse");
+		}
 	}
 	
 	public void doFilter(ServletRequest request, ServletResponse response, 
@@ -45,11 +63,15 @@ public class SecurityFilter implements Filter {
 		}
 		
 		logger.info("Dado que NO va a /login tiene que tener credenciales X-TOKEN valido");
-		Utiles.manejarRespuesta(reqHTTP, resHTTP, () -> {
+		var exito = Utiles.manejarPosibleError(reqHTTP, resHTTP, () -> {
 			// voy a asumir que NO tiene credenciales validas
-			verificarToken();
+			verificarToken(reqHTTP.getHeader("X-TOKEN"));
 			return null;
 		});
+		
+		if (exito) {
+			chain.doFilter(request, response);
+		}
 	}
 
 }

@@ -130,7 +130,7 @@ public class Utiles {
 	    entityManager.remove(alumno);
 	    tx.commit();
 	}
-	public static void manejarPosibleError(HttpServletRequest req,
+	public static Boolean manejarPosibleError(HttpServletRequest req,
 			HttpServletResponse res,
 			InversionDeControl ioc) {
 	
@@ -140,7 +140,7 @@ public class Utiles {
 		try {
 			out = res.getWriter();
 			ioc.controlar();
-			return;
+			return true;
 		}
 		catch (HttpException ex) {
 			res.setStatus(ex.status);
@@ -154,6 +154,7 @@ public class Utiles {
 			ex.printStackTrace();
 			out.println(new Gson().toJson(new ResultadoError("Error en el servidor")));
 		}
+		return false;
 	}
 	public static void manejarRespuesta(
 			HttpServletRequest req,
