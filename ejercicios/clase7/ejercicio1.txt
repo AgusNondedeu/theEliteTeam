@@ -1,0 +1,10 @@
+Se requiere que se implemente el filtro1 y el filtro2
+No hace falta que tenga logica, simplemente
+que logge en pantalla que filtro es ? y cual es el siguiente
+
+Se deben observar en pantalla 
+
+1) Filtro1
+2) Filtro2
+3) SecurityFilter
+

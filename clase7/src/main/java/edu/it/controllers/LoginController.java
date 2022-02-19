@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.codec.digest.DigestUtils;
+import org.apache.log4j.Logger;
 
 import edu.it.components.Utiles;
 import edu.it.dtos.UsuPass;
@@ -15,6 +16,23 @@ import edu.it.errores.NotFoundException;
 import edu.it.model.Usuario;
 
 public class LoginController extends HttpServlet {
+	private Logger logger = Logger.getLogger(getClass());
+	
+	/*
+	public void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws IOException, ServletException {
+		Utiles.manejarRespuesta(request, response, () -> {
+			logger.trace("Esto es un trace");
+			logger.debug("Esto es un debug");
+			logger.info("Esto es info");
+			logger.warn("Esto es un warning");
+			logger.error("Esto es un error");
+			
+			return "prueba log4j";
+		});
+	}
+	*/
+	
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
             throws IOException, ServletException {
 	
@@ -40,7 +58,7 @@ public class LoginController extends HttpServlet {
 				throw new NotFoundException("");
 			}
 			
-			return "TOKEN";
+			return "TOKEN_20220219";
 			
 			// Mecanismo de generacion de token.
 		});	
