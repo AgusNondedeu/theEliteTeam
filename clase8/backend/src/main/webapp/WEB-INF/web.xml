@@ -28,7 +28,7 @@
   </filter-mapping>
   <filter-mapping>
     <filter-name>security</filter-name>
-    <url-pattern>/*</url-pattern>
+    <url-pattern>/seguridad-deshabilitada</url-pattern>
   </filter-mapping>
   <servlet>
     <servlet-name>login</servlet-name>
