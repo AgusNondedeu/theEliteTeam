@@ -3,13 +3,13 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import ContadorSimple from './ContadorSimple/ContadorSimple'
 
 ReactDOM.render(
   <React.StrictMode>
-    <App titulo="Esta es la linea 1" />
-    <App titulo="segunda linea" />
-    <App titulo="tercera" />
-    <App titulo="cuarda" />
+    <App titulo="Cantidad de ejercicios resuletos" n='10' />
+    <ContadorSimple inicial={10} paso={3}></ContadorSimple>
+    <ContadorSimple inicial={10} paso={5}></ContadorSimple>
   </React.StrictMode>,
   document.getElementById('root')
 );
