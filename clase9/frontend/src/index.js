@@ -7,7 +7,7 @@ import ContadorSimple from './ContadorSimple/ContadorSimple'
 
 ReactDOM.render(
   <React.StrictMode>
-    <App titulo="Cantidad de ejercicios resuletos" n='10' />
+    <App titulo="Titulo de la App" />
   </React.StrictMode>,
   document.getElementById('root')
 );
