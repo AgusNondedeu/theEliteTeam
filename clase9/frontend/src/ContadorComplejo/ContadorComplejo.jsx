@@ -2,20 +2,35 @@ import React from 'react'
 import ContadorSimple from '../ContadorSimple/ContadorSimple'
 
 function ContadorComplejo(props) {
+    let [cuenta, setCuenta] = React.useState(0)
+    let arrValores = props.valores
 
-    /*
-    Hacer un nuevo componente que se llame ComponenteMuestraTexto
-    que se base en un array que recibo con el nombre de props.textos
-    Simplemente mostrar esos textos separados por <hr />
-    recordar que cuando llamo a <ContadorComplejo textos={["hola", "que", "tal"]} >
-    RECORDAR UTILIZAR EL MAP
-    */
+    {
+        cuenta = calcularTotal(arrValores)
+    }
+
+    function calcularTotal(unArray) {
+        let total = arrValores.reduce((acum, item) => {
+            return acum + item
+        }, 0)
+        return total
+    }
+
+    function volverAsetearCuenta() {
+        setCuenta(calcularTotal(arrValores))
+    }
+
+    function eventoRecalcularTotal(idx, totalItem) {
+        arrValores[idx] = totalItem
+        console.log(arrValores)
+        volverAsetearCuenta()
+    }
 
     function ComponenteVariosBotones() {
-        return props.valores.map((vs, idx) => {
+        return arrValores.map((vs, idx) => {
             return (
                 <>
-                <ContadorSimple key={idx} inicial={vs} paso={idx} cuandoHaceClick={()=>{}}>
+                <ContadorSimple key={idx} inicial={vs} paso={idx} cuandoHaceClick={(totalItem) => eventoRecalcularTotal(idx, totalItem)}>
                 </ContadorSimple>
                 </>
             )
@@ -23,9 +38,10 @@ function ContadorComplejo(props) {
     }
 
     return (
-        // DEBAJO DEL COMPONENTE VARIOS BOTONES AGREGAR EL NUEVO COMPONENTE
         <>
             <ComponenteVariosBotones valores={props.valores}></ComponenteVariosBotones>
+            <hr />
+            <h1>Suma Total: {cuenta}</h1>
         </>
     )
 }

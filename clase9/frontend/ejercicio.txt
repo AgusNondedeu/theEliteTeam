@@ -1,0 +1,15 @@
+Crear dos componentes
+que solo tengan un texto y un estilo
+
+Caracteres rojos, con un tamaño grande
+Caracteres azules con un tamaño paqueño
+
+El primero y segundo respectivamente
+
+La idea, es:
+
+Que si pongo localhost/rojo
+Que si pongo localhost/azul
+
+Se crea el segundo componente
+
