@@ -5,9 +5,10 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import ContadorSimple from './ContadorSimple/ContadorSimple'
 
+
 ReactDOM.render(
   <React.StrictMode>
-    <App titulo="Titulo de la App" />
+    <App titulo="Todos los ejemplos de React" />
   </React.StrictMode>,
   document.getElementById('root')
 );
