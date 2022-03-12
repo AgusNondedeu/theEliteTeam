@@ -26,11 +26,11 @@
   </servlet-mapping>
   <servlet-mapping>
     <servlet-name>alumnos</servlet-name>
-    <url-pattern>/alumno</url-pattern>
+    <url-pattern>/api/v1/alumno</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
     <servlet-name>alumnos</servlet-name>
-    <url-pattern>/alumno/*</url-pattern>
+    <url-pattern>/api/v1/alumno/*</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
     <servlet-name>usuarios</servlet-name>
@@ -42,6 +42,6 @@
   </servlet-mapping>
   <servlet-mapping>
     <servlet-name>random</servlet-name>
-    <url-pattern>/inventaralumnos</url-pattern>
+    <url-pattern>/api/v1/inventaralumnos</url-pattern>
   </servlet-mapping>
 </web-app>
